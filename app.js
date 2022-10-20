@@ -13,7 +13,7 @@ const App = new Vue({
         games: [],
         pagination: {
             current: 1,
-            size: 250,
+            size: 150,
             count: 1
         },
         chat_filter_regexp: [
@@ -43,6 +43,7 @@ const App = new Vue({
             this.page = 1;
             this.games = [];
             this.pagination.count = 1;
+            this.pagination.current = 1;
             this.status = 'Searchig player ...'
             await this.getPlayer();
             if(!this.player.id) {
