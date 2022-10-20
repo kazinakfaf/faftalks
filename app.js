@@ -18,6 +18,9 @@ const App = new Vue({
         },
         chat_filter_regexp: [
             new RegExp('^sent .* units* to [a-zA-Z0-9-_]+$', 'i'),
+            new RegExp('^Sent units to.*$', 'i'),
+            new RegExp('^e+$', 'i'),
+            new RegExp('^g+$', 'i'),
             new RegExp('^Sent Mass .+ to [a-zA-Z0-9-_]+$', 'i'),
             new RegExp('^Sent .+ mass to [a-zA-Z0-9-_]+$', 'i'),
             new RegExp('^Sent Energy .+ to [a-zA-Z0-9-_]+$', 'i'),
