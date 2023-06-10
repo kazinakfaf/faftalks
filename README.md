@@ -1,0 +1,1 @@
+Read what player saying in game

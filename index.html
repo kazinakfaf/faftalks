@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAF Talks</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="vendor/alertify/css/alertify.min.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/alertify/css/themes/semantic.min.css" />
+    <link rel="stylesheet/less" type="text/css" href="style.less" />
+</head>
+<body>
+    <div id="app" class="app">
+        <h1>FAF Talks</h1>
+
+        <div class="player">
+            <input type="text" v-model="player.name" placeholder="username" :disabled="searching" @keyup.enter="search()">
+        </div>
+
+        <div class="actions">
+            <button :disabled="searching" @click="search()">
+                <img src="images/search.svg" alt="search" >
+            </button>
+            <button :disabled="!searching" @click="searching = false">
+                <img src="images/stop.svg" alt="search" >
+            </button>
+        </div>
+
+        <div class="status">{{ status }}</div>
+        <div class="games">
+            <div class="game" v-for="game in paginated">
+                <div class="header">
+                    <div class="id">#{{game.id}}</div>
+                    <div class="view">
+                        <img src="images/chat-own.svg" @click="game.chatall = true" v-if="!game.chatall" >
+                        <img src="images/chat-all.svg" @click="game.chatall = false" v-if="game.chatall" >
+                    </div>
+                </div>
+                
+                <div class="chat">
+                    <div :class="{message:true, own:player.id == msg.player_id}" v-for="msg in game.chat" v-if="getMessageView(game, msg)"  >
+                        <div class="time">{{msg.time}}</div>
+                        <div class="from">{{msg.from}}</div>
+                        <div class="to">to {{msg.to}}</div>
+                        <div class="text">{{msg.text}}</div>
+                    </div>
+                </div>
+            </div>   
+        </div>
+
+        <div class="pagination" v-if="pagination.count > 1">
+            <button :class="{current:(pagination.current == page_index)}" v-for="page_index in pagination.count" @click="goToPage(page_index)">{{page_index}}</button>
+        </div>
+    </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/fzstd/umd/index.js"></script>
+    <script src="vendor/less.min.js"></script>
+    <script src="vendor/vue.min.js"></script>
+    <script src="vendor/alertify/alertify.min.js"></script>
+    <!-- Forked https://github.com/fafafaf/fafafaf.github.io -->
+    <script src="replayParser.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
